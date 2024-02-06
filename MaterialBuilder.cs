@@ -27,8 +27,10 @@ namespace WallSectionWidget
             pManager.AddNumberParameter("Vapour resistance", "VR", "Water vapour diffusion resistance factor over ordinary air", GH_ParamAccess.item);
             pManager.AddNumberParameter("Density", "D", "Density (kg/m3)", GH_ParamAccess.item);
             pManager.AddNumberParameter("HeatCapacity", "HC", "Specific heat capacity (J/kgK)", GH_ParamAccess.item);
+            pManager.AddColourParameter("DisplayColour", "DC", "Colour for display in visualisers", GH_ParamAccess.item);
             pManager[3].Optional = true;
             pManager[4].Optional = true;
+            pManager[5].Optional = true;
         }
 
         /// <summary>
@@ -50,6 +52,7 @@ namespace WallSectionWidget
             double vapourResistivity = Material.Lamination.VapourResistivity;
             double density = Material.Lamination.Density;
             double heatCapacity = Material.Lamination.HeatCapacity;
+            System.Drawing.Color color = System.Drawing.Color.DarkGray;
             if (!DA.GetData(0, ref name))
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Missing input: material name");
@@ -67,6 +70,7 @@ namespace WallSectionWidget
             }
             DA.GetData(3, ref density);
             DA.GetData(4, ref heatCapacity);
+            DA.GetData(5, ref color);
 
             if (conductivity <= 0)
             {
@@ -96,7 +100,8 @@ namespace WallSectionWidget
                 Conductivity = conductivity,
                 VapourResistivity = vapourResistivity,
                 Density = density,
-                HeatCapacity = heatCapacity
+                HeatCapacity = heatCapacity,
+                VisualiserSetting = new MaterialVisualiserSetting() { Color = color },
             };
 
             DA.SetData(0, material.GHIOParam);

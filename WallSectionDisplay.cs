@@ -13,7 +13,7 @@ namespace WallSectionWidget
         public WallSectionDisplay()
           : base("WallSectionDisplay", "WSDis",
               "Display for a wall section construction",
-              "WallSectionWidget", "Display")
+              "WallSectionWidget", "Visualisation")
         {
         }
 
@@ -96,9 +96,7 @@ namespace WallSectionWidget
         {
             get
             {
-                //You can add image files to your project resources and access them like this:
-                // return Resources.IconForThisComponent;
-                return null;
+                return Properties.Resources.ConstructionDisplay.ToBitmap();
             }
         }
 

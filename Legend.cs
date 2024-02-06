@@ -169,9 +169,17 @@ namespace WallSectionWidget
         public static List<double> PrettyBreaks(double minValue, double maxValue, double baseFactor)
         {
             List<double> result = new List<double>();
-            for (int i = 0; i < 1000; i++)
+            int start = 0;
+            if (minValue <= 0)
             {
-                if (baseFactor * (i - 2) >= maxValue)
+                start = (int)-Math.Ceiling(Math.Abs(minValue / baseFactor));
+            } else
+            {
+                start = (int)Math.Floor(minValue / baseFactor) - 1;
+            }
+            for (int i = start; i < 1000; i++)
+            {
+                if (baseFactor * (i - 1) >= maxValue)
                 {
                     break;
                 }

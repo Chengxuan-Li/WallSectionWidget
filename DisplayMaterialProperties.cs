@@ -13,7 +13,7 @@ namespace WallSectionWidget
         public DisplayMaterialProperties()
           : base("DisplayMaterialProperties", "DMat",
               "Display the material properties of a WSW Material definition",
-              "WallSectionWidget", "Display")
+              "WallSectionWidget", "Visualisation")
         {
         }
 

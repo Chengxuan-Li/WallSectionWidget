@@ -71,6 +71,8 @@
     <Compile Include="GHIOParam.cs" />
     <Compile Include="ModelParameters.cs" />
     <Compile Include="Parameters.cs" />
+    <Compile Include="HumidityProfileDisplay.cs" />
+    <Compile Include="DewPointProfileDisplay.cs" />
     <Compile Include="TemperatureProfileDisplay.cs" />
     <Compile Include="ProfileVisualiser.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -111,6 +113,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\MaterialPresets.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TemperatureDisplay.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ConstructionDisplay.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\HumidityDisplay.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DewPointDisplay.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -73,9 +73,39 @@ namespace WallSectionWidget.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
+        internal static System.Drawing.Icon ConstructionDisplay {
+            get {
+                object obj = ResourceManager.GetObject("ConstructionDisplay", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon DewPointDisplay {
+            get {
+                object obj = ResourceManager.GetObject("DewPointDisplay", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
         internal static System.Drawing.Icon DisplayMaterial {
             get {
                 object obj = ResourceManager.GetObject("DisplayMaterial", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon HumidityDisplay {
+            get {
+                object obj = ResourceManager.GetObject("HumidityDisplay", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }
@@ -116,6 +146,16 @@ namespace WallSectionWidget.Properties {
         internal static System.Drawing.Icon ModelParameters {
             get {
                 object obj = ResourceManager.GetObject("ModelParameters", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon TemperatureDisplay {
+            get {
+                object obj = ResourceManager.GetObject("TemperatureDisplay", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }

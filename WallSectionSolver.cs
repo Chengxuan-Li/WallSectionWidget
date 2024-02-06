@@ -48,6 +48,7 @@ namespace WallSectionWidget
             pManager.AddNumberParameter("VapourPressures", "VP", "Vapour pressure profile from the inner surface of the wall", GH_ParamAccess.list);
             pManager.AddNumberParameter("DewPoints", "DP", "Dew point temperature profile from the inner surface of the wall", GH_ParamAccess.list);
             pManager.AddNumberParameter("RelativeHumidityLevels", "RH", "Relative humidity profile from the inner surface of the wall", GH_ParamAccess.list);
+            pManager.AddNumberParameter("UValue", "U", "Overall U-value of the wall build-up", GH_ParamAccess.item);
             // Sometimes you want to hide a specific parameter from the Rhino preview.
             // You can use the HideParameter() method as a quick way:
             //pManager.HideParameter(0);
@@ -97,6 +98,7 @@ namespace WallSectionWidget
             DA.SetDataList(3, model.VapourPressures);
             DA.SetDataList(4, model.DewPoints);
             DA.SetDataList(5, model.RelativeHumidityLevels);
+            DA.SetData(6, model.Construction.U);
         }
 
 

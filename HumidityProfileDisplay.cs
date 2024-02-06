@@ -6,7 +6,7 @@ using Rhino.Display;
 
 namespace WallSectionWidget
 {
-    public class TemperatureProfileDisplay : GH_Component
+    public class HumidityProfileDisplay : GH_Component
     {
         
         public List<TextEntity> PreviewTexts = new List<TextEntity>();
@@ -15,9 +15,9 @@ namespace WallSectionWidget
         /// <summary>
         /// Initializes a new instance of the ProfileDisplay class.
         /// </summary>
-        public TemperatureProfileDisplay()
-          : base("TemperatureProfileDisplay", "TPFDis",
-              "Display for a wall section temperature profile",
+        public HumidityProfileDisplay()
+          : base("HumidityProfileDisplay", "HPFDis",
+              "Display for a wall section relative humidity profile",
               "WallSectionWidget", "Visualisation")
         {
         }
@@ -103,8 +103,9 @@ namespace WallSectionWidget
 
             bool bake = false;
             DA.GetData(7, ref bake);
-
-            ProfileVisualiser vis = new ProfileVisualiser(model.Depths, model.Temperatures);
+            List<double> humidity = new List<double>();
+            model.RelativeHumidityLevels.ForEach(h => humidity.Add(h <= 100 ? h : 100));
+            ProfileVisualiser vis = new ProfileVisualiser(model.Depths, humidity);
             vis.OverrideLegendMinMax = overrideLegendMinMax;
             if (overrideLegendMinMax)
             {
@@ -129,7 +130,7 @@ namespace WallSectionWidget
             DA.SetData(1, vis.PolylineProfile().ToNurbsCurve());
             Profile = vis.PolylineProfile();
 
-            vis.Legend.Title = @"Temperature (degC)";
+            vis.Legend.Title = @"Relative Humidity %";
 
             PreviewTexts.Clear();
             PreviewTexts.Add(vis.Legend.TitleTextEntity);
@@ -149,7 +150,7 @@ namespace WallSectionWidget
         {
             get
             {
-                return Properties.Resources.TemperatureDisplay.ToBitmap();
+                return Properties.Resources.HumidityDisplay.ToBitmap();
             }
         }
 
@@ -157,7 +158,7 @@ namespace WallSectionWidget
         public override void DrawViewportMeshes(IGH_PreviewArgs args)
         {
             PreviewTexts.ForEach(t => args.Display.DrawText(t, System.Drawing.Color.Black));
-            args.Display.DrawPolyline(Profile, System.Drawing.Color.Red, 3);
+            args.Display.DrawPolyline(Profile, System.Drawing.Color.Blue, 3);
         }
 
         
@@ -166,7 +167,7 @@ namespace WallSectionWidget
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("6afb7948-0ada-478b-8b76-0a2ad83de8c5"); }
+            get { return new Guid("4f20743b-e8cb-4b36-88e8-cd44597cd1b4"); }
         }
     }
 }

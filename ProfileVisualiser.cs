@@ -78,7 +78,7 @@ namespace WallSectionWidget
                 Plane = plane,
                 OnLeft = true,
                 AutomaticLabelling = !OverrideLegendMinMax,
-                AlternativeLabels = Legend.PrettyBreaks(OverrideLegendMin, OverrideLegendMax, 7),
+                AlternativeLabels = Legend.PrettyBreaks(OverrideLegendMin, OverrideLegendMax, 3),
             };
             return;
         }
@@ -100,7 +100,7 @@ namespace WallSectionWidget
                 Plane = plane,
                 OnLeft = false,
                 AutomaticLabelling = !OverrideLegendMinMax,
-                AlternativeLabels = Legend.PrettyBreaks(OverrideLegendMin, OverrideLegendMax, 7),
+                AlternativeLabels = Legend.PrettyBreaks(OverrideLegendMin, OverrideLegendMax, 3),
             };
             return;
         }

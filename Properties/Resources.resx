@@ -121,8 +121,17 @@
   <data name="ConstructionBuilder" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ConstructionBuilder.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="ConstructionDisplay" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ConstructionDisplay.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DewPointDisplay" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DewPointDisplay.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="DisplayMaterial" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\DisplayMaterial.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="HumidityDisplay" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\HumidityDisplay.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="LayerBuilder" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\LayerBuilder.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -135,6 +144,9 @@
   </data>
   <data name="ModelParameters" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ModelParameters.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TemperatureDisplay" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TemperatureDisplay.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="WallSectionSolver" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\WallSectionSolver.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

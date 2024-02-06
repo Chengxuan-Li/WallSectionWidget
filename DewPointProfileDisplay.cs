@@ -6,7 +6,7 @@ using Rhino.Display;
 
 namespace WallSectionWidget
 {
-    public class TemperatureProfileDisplay : GH_Component
+    public class DewPointProfileDisplay : GH_Component
     {
         
         public List<TextEntity> PreviewTexts = new List<TextEntity>();
@@ -15,9 +15,9 @@ namespace WallSectionWidget
         /// <summary>
         /// Initializes a new instance of the ProfileDisplay class.
         /// </summary>
-        public TemperatureProfileDisplay()
-          : base("TemperatureProfileDisplay", "TPFDis",
-              "Display for a wall section temperature profile",
+        public DewPointProfileDisplay()
+          : base("DewPointProfileDisplay", "DPPFDis",
+              "Display for a wall section dew point temperature profile",
               "WallSectionWidget", "Visualisation")
         {
         }
@@ -104,7 +104,7 @@ namespace WallSectionWidget
             bool bake = false;
             DA.GetData(7, ref bake);
 
-            ProfileVisualiser vis = new ProfileVisualiser(model.Depths, model.Temperatures);
+            ProfileVisualiser vis = new ProfileVisualiser(model.Depths, model.DewPoints);
             vis.OverrideLegendMinMax = overrideLegendMinMax;
             if (overrideLegendMinMax)
             {
@@ -129,7 +129,7 @@ namespace WallSectionWidget
             DA.SetData(1, vis.PolylineProfile().ToNurbsCurve());
             Profile = vis.PolylineProfile();
 
-            vis.Legend.Title = @"Temperature (degC)";
+            vis.Legend.Title = @"Dew Point Temperature (degC)";
 
             PreviewTexts.Clear();
             PreviewTexts.Add(vis.Legend.TitleTextEntity);
@@ -149,7 +149,7 @@ namespace WallSectionWidget
         {
             get
             {
-                return Properties.Resources.TemperatureDisplay.ToBitmap();
+                return Properties.Resources.DewPointDisplay.ToBitmap();
             }
         }
 
@@ -157,7 +157,7 @@ namespace WallSectionWidget
         public override void DrawViewportMeshes(IGH_PreviewArgs args)
         {
             PreviewTexts.ForEach(t => args.Display.DrawText(t, System.Drawing.Color.Black));
-            args.Display.DrawPolyline(Profile, System.Drawing.Color.Red, 3);
+            args.Display.DrawPolyline(Profile, System.Drawing.Color.Black, 3);
         }
 
         
@@ -166,7 +166,7 @@ namespace WallSectionWidget
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("6afb7948-0ada-478b-8b76-0a2ad83de8c5"); }
+            get { return new Guid("feb1ed8f-1a93-465f-8be8-45ae965d7072"); }
         }
     }
 }
