@@ -38,12 +38,16 @@ namespace WallSectionWidget
 
             double minValue = Legend.Labels[0];
             double maxValue = Legend.Labels[Legend.Labels.Count - 1];
-            List<double> posX = new List<double>();
+            List<double> posX = new List<double> { -TailLength * Scale };
             XValues.ForEach(x => posX.Add(x * Scale));
+            posX.Add(posX[posX.Count - 1] + TailLength * Scale);
+
             List<double> posY = new List<double>();
             YValues.ForEach(y => posY.Add((y - minValue) / (maxValue - minValue) * Height * Scale));
+            posY.Insert(0, posY[0]);
+            posY.Add(posY[posY.Count - 1]);
             List<Point3d> pts = new List<Point3d>();
-            for (int i = 0; i < XValues.Count; i++)
+            for (int i = 0; i < posX.Count; i++)
             {
                 Point3d p = new Point3d(posX[i], posY[i], 0);
                 p.Transform(Transform);
@@ -68,6 +72,7 @@ namespace WallSectionWidget
                 Scale = this.Scale,
                 Height = this.Height,
                 Plane = plane,
+                OnLeft = true,
             };
             return;
         }
@@ -87,6 +92,7 @@ namespace WallSectionWidget
                 Scale = this.Scale,
                 Height = this.Height,
                 Plane = plane,
+                OnLeft = false,
             };
             return;
         }

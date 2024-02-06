@@ -17,6 +17,8 @@ namespace WallSectionWidget
         public double Scale;
         public double UnitScale => 1.0; // RhinoMath.UnitScale(RhinoDoc.ActiveDoc.ModelUnitSystem, UnitSystem.Meters);
 
+        Transform Transform => Transform.PlaneToPlane(Plane.WorldXY, Plane);
+
         public WallSectionVisualiser(Construction construction, Plane plane, double height, double scale)
         {
             Construction = construction;
@@ -40,9 +42,15 @@ namespace WallSectionWidget
             xSep.ForEach(x => SepPtsBelow.Add(new Point3d(x * Scale, 0, 0)));
             xSep.ForEach(x => SepPtsAbove.Add(new Point3d(x * Scale, Height * Scale, 0)));
 
-            Transform transform = Transform.PlaneToPlane(Plane.WorldXY, Plane);
-            SepPtsBelow.ForEach(p => p.Transform(transform));
-            SepPtsAbove.ForEach(p => p.Transform(transform));
+            for (int i = 0; i < SepPtsAbove.Count; i++)
+            {
+                var pa = SepPtsAbove[i];
+                pa.Transform(Transform);
+                SepPtsAbove[i] = pa;
+                var pb = SepPtsBelow[i];
+                pb.Transform(Transform);
+                SepPtsBelow[i] = pb;
+            }
             for (int i = 0; i < SepPtsAbove.Count; i++)
             {
                 seps.Add(new Line(SepPtsBelow[i], SepPtsAbove[i]));

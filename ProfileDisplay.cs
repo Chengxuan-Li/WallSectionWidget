@@ -2,11 +2,15 @@
 using Rhino.Geometry;
 using System;
 using System.Collections.Generic;
+using Rhino.Display;
 
 namespace WallSectionWidget
 {
     public class ProfileDisplay : GH_Component
     {
+        
+        public List<TextEntity> PreviewTexts = new List<TextEntity>();
+
         /// <summary>
         /// Initializes a new instance of the ProfileDisplay class.
         /// </summary>
@@ -83,7 +87,7 @@ namespace WallSectionWidget
                 return;
             }
 
-            ProfileVisualiser vis = new ProfileVisualiser(model.Depths, model.Temperatures);
+            ProfileVisualiser vis = new ProfileVisualiser(model.Depths, model.DewPoints);
             vis.Plane = plane;
             vis.Height = height;
             vis.Scale = scale;
@@ -100,7 +104,9 @@ namespace WallSectionWidget
             legendGeoCollector.Add(vis.Legend.Axis);
             DA.SetDataList(0, legendGeoCollector);
             DA.SetData(1, vis.PolylineProfile().ToNurbsCurve());
-
+            PreviewTexts.Clear();
+            PreviewTexts.Add(vis.Legend.TitleTextEntity);
+            PreviewTexts.AddRange(vis.Legend.AxisLabelTextEntities);
 
         }
 
@@ -115,6 +121,12 @@ namespace WallSectionWidget
                 // return Resources.IconForThisComponent;
                 return null;
             }
+        }
+
+
+        public override void DrawViewportMeshes(IGH_PreviewArgs args)
+        {
+            PreviewTexts.ForEach(t => args.Display.DrawText(t, System.Drawing.Color.Black));
         }
 
         /// <summary>

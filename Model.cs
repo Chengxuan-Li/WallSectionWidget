@@ -22,12 +22,14 @@ namespace WallSectionWidget
         public Model(Construction construction, Parameters parameters)
         {
             Parameters = parameters;
-            Construction = construction;
-
-            List<Layer> layers = Construction.Layers;
-            layers.Insert(0, new Layer(Material.Air, Parameters.InteriorContactDistance));
-            layers.Add(new Layer(Material.Air, Parameters.ExteriorContactDistance));
+            List<Layer> layers = new List<Layer>();
+            construction.Layers.ForEach(L => layers.Add(L));
             Construction = new Construction { Layers = layers };
+
+            
+            Construction.Layers.Insert(0, new Layer(Material.Air, Parameters.InteriorContactDistance));
+            Construction.Layers.Add(new Layer(Material.Air, Parameters.ExteriorContactDistance));
+            
 
             Construction.InteriorTemperature = Parameters.InteriorTemperature;
             Construction.InteriorHumidity = Parameters.InteriorHumidity;

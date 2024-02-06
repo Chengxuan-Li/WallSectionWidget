@@ -22,10 +22,10 @@ namespace WallSectionWidget
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddScriptVariableParameter("WSWConstruction", "C", "WSW Construction definition", GH_ParamAccess.item);
+            pManager.AddGenericParameter("WSModel", "SM", "WSW Model definition of a solved wall section model", GH_ParamAccess.item);
             pManager.AddPlaneParameter("Plane", "Pl", "Plane", GH_ParamAccess.item);
-            pManager.AddPlaneParameter("Height", "H", "Height", GH_ParamAccess.item);
-            pManager.AddPlaneParameter("Scale", "S", "Custom scale factor", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Height", "H", "Height", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Scale", "S", "Custom scale factor", GH_ParamAccess.item);
             pManager[1].Optional = true;
             pManager[2].Optional = true;
             pManager[3].Optional = true;
@@ -46,16 +46,17 @@ namespace WallSectionWidget
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            GHIOParam<Construction> constructionGHIO = default;
-            if (!DA.GetData(0, ref constructionGHIO))
+            GHIOParam<Model> modelGHIO = default;
+            if (!DA.GetData(0, ref modelGHIO))
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Missing input: WSWConstruction definition");
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Missing input: WSWModel definition");
                 return;
             }
-            Construction construction;
-            if (!constructionGHIO.GetContent(out construction))
+
+            Model model;
+            if (!modelGHIO.GetContent(out model))
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Input error: WSWConstruction input is of wrong type");
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Input error: WSWModel input is of wrong type");
                 return;
             }
 
@@ -77,7 +78,7 @@ namespace WallSectionWidget
                 return;
             }
 
-            WallSectionVisualiser vis = new WallSectionVisualiser(construction, plane, height, scale);
+            WallSectionVisualiser vis = new WallSectionVisualiser(model.Construction, plane, height, scale);
 
             List<Line> seps;
             List<Mesh> hatches;
