@@ -12,25 +12,12 @@ namespace WallSectionWidget
     public class Construction
     {
         public List<Layer> Layers;
-        public double Ti;
-        public double Te;
-        public double Hi;
-        public double He;
+        public double InteriorTemperature = 20.0;
+        public double ExteriorTemperature = 5.0;
+        public double InteriorHumidity = 50.0;
+        public double ExteriorHumidity = 80.0;
 
-        public Construction(List<Layer> layers)
-        {
-            Layers = layers;
-            Ti = 20.0;
-            Te = 5.0;
-            Hi = 50.0;
-            He = 80.0;
-
-            UpdateLayers();
-        }
-
-        public Construction()
-        {
-        }
+        public GHIOParam<Construction> GHIOParam => new GHIOParam<Construction>(this);
 
         public double Thickness
         {
@@ -76,45 +63,65 @@ namespace WallSectionWidget
             get { return 1 / Resistance; }
         }
 
-        public double DT
+        public double TemperatureDifference
         {
-            get { return Te - Ti; }
+            get { return ExteriorTemperature - InteriorTemperature; }
         }
 
-        public double Pi
+        public double InteriorVapourPressure
         {
-            get { return Psychrometrics.VapourPressure(Ti, Hi); }
+            get { return Psychrometrics.VapourPressure(InteriorTemperature, InteriorHumidity); }
         }
 
-        public double Pe
+        public double ExteriorVapourPressure
         {
-            get { return Psychrometrics.VapourPressure(Te, He); }
+            get { return Psychrometrics.VapourPressure(ExteriorTemperature, ExteriorHumidity); }
         }
 
-        public double DP
+        public double VapourPressureDifference
         {
-            get { return Pe - Pi; }
+            get { return ExteriorVapourPressure - InteriorVapourPressure; }
         }
 
         public void UpdateLayers()
         {
-            double T = Ti;
-            double P = Pi;
-            double X = 0.0;
+            double ti = InteriorTemperature;
+            double pi = InteriorVapourPressure;
+            double xi = 0.0;
             foreach (Layer layer in Layers)
             {
-                layer.Dt = layer.Resistivity / Resistance * DT;
-                layer.Ti = T;
-                T += layer.Dt;
+                // assign the correct temperature difference for each layer
+                layer.TemperatureDifference = layer.Resistivity / Resistance * TemperatureDifference;
+                layer.InteriorTemperature = ti;
+                
+                // update the inner surface temperature for the next layer
+                ti += layer.TemperatureDifference;
 
-                layer.Dp = layer.VapourResistivity / VapourResistance * DP;
-                layer.Pi = P;
-                P += layer.Dp;
+                // assign the correct VP difference for each layer
+                layer.VapourPressureDifference = layer.VapourResistivity / VapourResistance * VapourPressureDifference;
+                layer.InteriorVapourPressure = pi;
 
-                layer.Xi = X;
-                X += layer.Thickness;
+                // update the inner surface VP for the next layer
+                pi += layer.VapourPressureDifference;
+
+                // assign the correct innter surface depth for each layer
+                layer.InteriorSideDepthFromSurface = xi;
+
+                // update the inner surface 
+                xi += layer.Thickness;
             }
+
         }
+
+        public static Construction Default => new Construction
+        {
+            Layers = new List<Layer> {
+                new Layer(Material.Lamination, 0.04),
+                new Layer(Material.Cork, 0.16),
+                new Layer(Material.Concrete, 0.3),
+            },
+        };
+
     }
 
 }

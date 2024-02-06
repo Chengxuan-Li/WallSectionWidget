@@ -14,7 +14,9 @@ namespace WallSectionWidget
         public double HeatCapacity;
         public string Name;
 
-        public Material Air
+        public GHIOParam<Material> GHIOParam => new GHIOParam<Material>(this);
+
+        public static Material Air
         {
             get
             {
@@ -29,7 +31,7 @@ namespace WallSectionWidget
             }
         }
 
-        public Material Concrete
+        public static Material Concrete
         {
             get
             {
@@ -44,7 +46,7 @@ namespace WallSectionWidget
             }
         }
 
-        public Material Cork
+        public static Material Cork
         {
             get
             {
@@ -59,7 +61,7 @@ namespace WallSectionWidget
             }
         }
 
-        public Material Lamination
+        public static Material Lamination
         {
             get
             {
@@ -74,7 +76,7 @@ namespace WallSectionWidget
             }
         }
 
-        public Material VapourRetarder
+        public static Material VapourRetarder
         {
             get
             {

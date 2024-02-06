@@ -10,7 +10,7 @@ namespace WallSectionWidget
     {
         public Layer Layer;
         public int NumStep;
-        public double Step;
+        public double StepLength;
         public List<double> Temperatures;
         public List<double> VapourPressures;
         public List<double> Depths;
@@ -21,19 +21,19 @@ namespace WallSectionWidget
         {
             Layer = layer;
             NumStep = (int)Math.Ceiling(Layer.Thickness / minStep);
-            Step = Layer.Thickness / NumStep;
+            StepLength = Layer.Thickness / NumStep;
             Temperatures = new List<double>();
             VapourPressures = new List<double>();
             Depths = new List<double>();
             for (int i = 0; i < this.NumStep; i++)
             {
-                Temperatures.Add(Layer.Ti + i / (double)NumStep * Layer.Dt);
-                VapourPressures.Add(Layer.Pi + i / (double)NumStep * Layer.Dp);
-                Depths.Add(Layer.Xi + i / (double)NumStep * Layer.Thickness);
+                Temperatures.Add(Layer.InteriorTemperature + i / (double)NumStep * Layer.TemperatureDifference);
+                VapourPressures.Add(Layer.InteriorVapourPressure + i / (double)NumStep * Layer.VapourPressureDifference);
+                Depths.Add(Layer.InteriorSideDepthFromSurface + i / (double)NumStep * Layer.Thickness);
             }
-            Temperatures.Add(Layer.Te);
-            VapourPressures.Add(Layer.Pe);
-            Depths.Add(Layer.Xe);
+            Temperatures.Add(Layer.ExteriorTemperature);
+            VapourPressures.Add(Layer.ExteriorVapourPressure);
+            Depths.Add(Layer.ExteriorSideDepthFromSurface);
 
             DewPoints = new List<double>();
             RelativeHumidities = new List<double>();

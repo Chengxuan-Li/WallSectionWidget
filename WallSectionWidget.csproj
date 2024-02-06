@@ -59,14 +59,33 @@
     <Compile Include="Construction.cs" />
     <Compile Include="IntermediateConditions.cs" />
     <Compile Include="Layer.cs" />
+    <Compile Include="LayerBuilder.cs" />
     <Compile Include="Material.cs" />
+    <Compile Include="MaterialBuilder.cs" />
     <Compile Include="Model.cs" />
-    <Compile Include="ModelGHParam.cs" />
+    <Compile Include="GHIOParam.cs" />
     <Compile Include="Parameters.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Psychrometrics.cs" />
     <Compile Include="WallSectionSolver.cs" />
     <Compile Include="WallSectionWidgetInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WallSectionSolverIcon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WallSectionSolver.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

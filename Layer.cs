@@ -8,23 +8,25 @@ namespace WallSectionWidget
 {
     public class Layer
     {
-        private Material Material;
+        public Material Material;
         public double Thickness { get; private set; }
-        public double Xi;
-        public double Ti;
-        public double Dt;
-        public double Pi;
-        public double Dp;
+        public double InteriorSideDepthFromSurface;
+        public double InteriorTemperature;
+        public double TemperatureDifference;
+        public double InteriorVapourPressure;
+        public double VapourPressureDifference;
+
+        public GHIOParam<Layer> GHIOParam => new GHIOParam<Layer>(this);
 
         public Layer(Material material, double thickness)
         {
             Material = material;
             Thickness = thickness;
-            Xi = 0.0;
-            Ti = 15.0;
-            Dt = -5.0;
-            Pi = 2000;
-            Dp = -300;
+            InteriorSideDepthFromSurface = 0.0;
+            InteriorTemperature = 15.0;
+            TemperatureDifference = -5.0;
+            InteriorVapourPressure = 2000;
+            VapourPressureDifference = -300;
         }
 
         public double Conductivity
@@ -42,24 +44,24 @@ namespace WallSectionWidget
             get { return Material.VapourResistivity * Thickness; }
         }
 
-        public double Te
+        public double ExteriorTemperature
         {
-            get { return Ti + Dt; }
+            get { return InteriorTemperature + TemperatureDifference; }
         }
 
-        public double Pe
+        public double ExteriorVapourPressure
         {
-            get { return Pi + Dp; }
+            get { return InteriorVapourPressure + VapourPressureDifference; }
         }
 
-        public double Hi
+        public double InteriorHumidity
         {
-            get { return Psychrometrics.RelativeHumidity(Ti, Pi); }
+            get { return Psychrometrics.RelativeHumidity(InteriorTemperature, InteriorVapourPressure); }
         }
 
-        public double He
+        public double ExteriorHumidity
         {
-            get { return Psychrometrics.RelativeHumidity(Te, Pe); }
+            get { return Psychrometrics.RelativeHumidity(ExteriorTemperature, ExteriorVapourPressure); }
         }
 
         public IntermediateConditions IntermediateConditions
@@ -67,9 +69,9 @@ namespace WallSectionWidget
             get { return new IntermediateConditions(this); }
         }
 
-        public double Xe
+        public double ExteriorSideDepthFromSurface
         {
-            get { return Xi + Thickness; }
+            get { return InteriorSideDepthFromSurface + Thickness; }
         }
     }
 
