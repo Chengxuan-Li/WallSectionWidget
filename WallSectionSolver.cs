@@ -31,20 +31,8 @@ namespace WallSectionWidget
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddScriptVariableParameter("Construction", "C", "Wall construction", GH_ParamAccess.item);
-            //pManager.AddScriptVariableParameter("Internal Status", "IntStat", "Internal temperature and humidity definition", GH_ParamAccess.item);
-            //pManager.AddScriptVariableParameter("External Status", "IntStat", "External temperature and humidity definition", GH_ParamAccess.item);
-
-            
-            pManager.AddIntegerParameter("Placeholder1", "P1", "Placeholder1", GH_ParamAccess.item); // TODO
-            pManager.AddIntegerParameter("Placeholder2", "P2", "Placeholder2", GH_ParamAccess.item); // TODO
-
-
-
-            pManager[0].Optional = true; // TODO
-            pManager[1].Optional = true;
-            pManager[2].Optional = true;
-
+            pManager.AddScriptVariableParameter("WSWConstruction", "C", "WSW Construction definition", GH_ParamAccess.item);
+            pManager.AddScriptVariableParameter("WSWModelParameters", "MParams", "WSW model parameters definition", GH_ParamAccess.item);           
         }
 
         /// <summary>
@@ -72,25 +60,34 @@ namespace WallSectionWidget
         /// to store data in output parameters.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            // First, we need to retrieve all data from the input parameters.
-            // We'll start by declaring variables and assigning them starting values.
-            GHIOParam<Model> refModel = default;
-
-            // Then we need to access the input parameters individually. 
-            // When data cannot be extracted from a parameter, we should abort this method.
-            //if (!DA.GetData(0, ref refModel)) ;
-            
-
-
-            // We should now validate the data and warn the user if invalid data is supplied.
-            if (false)
+            GHIOParam<Construction> constructionGHIO = default;
+            if (!DA.GetData(0, ref constructionGHIO))
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Msg");
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Missing input: WSWConstruction definition");
+                return;
+            }
+            Construction construction;
+            if (!constructionGHIO.GetContent(out construction))
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Input error: WSWConstruction input is of wrong type");
+                return;
+            }
+
+            GHIOParam<Parameters> parametersGHIO = default;
+            if (!DA.GetData(1, ref parametersGHIO))
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Missing input: WSWParameters definition");
+                return;
+            }
+            Parameters parameters;
+            if (!parametersGHIO.GetContent(out parameters))
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Input error: WSWParameters input is of wrong type");
                 return;
             }
 
             // Instantiate the model
-            Model model = new Model(Construction.Default, Parameters.DefaultWinter);
+            Model model = new Model(construction, parameters);
 
 
             // Finally assign model results to the output parameter.

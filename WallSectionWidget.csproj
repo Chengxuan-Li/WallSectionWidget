@@ -57,13 +57,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Construction.cs" />
+    <Compile Include="ConstructionBuilder.cs" />
+    <Compile Include="DisplayMaterialProperties.cs" />
     <Compile Include="IntermediateConditions.cs" />
     <Compile Include="Layer.cs" />
     <Compile Include="LayerBuilder.cs" />
     <Compile Include="Material.cs" />
     <Compile Include="MaterialBuilder.cs" />
+    <Compile Include="MaterialPresets.cs" />
     <Compile Include="Model.cs" />
     <Compile Include="GHIOParam.cs" />
+    <Compile Include="ModelParameters.cs" />
     <Compile Include="Parameters.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -82,10 +86,25 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\WallSectionSolverIcon.ico" />
+    <None Include="Resources\WallSectionSolver.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\WallSectionSolver.ico" />
+    <None Include="Resources\ModelParameters.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LayerBuilder.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ConstructionBuilder.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MaterialBuilder.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DisplayMaterial.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MaterialPresets.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
