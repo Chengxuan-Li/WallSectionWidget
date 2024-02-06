@@ -9,19 +9,18 @@ namespace WallSectionWidget
     public class IntermediateConditions
     {
         public Layer Layer;
-        public int NumStep;
-        public double StepLength;
+        public double MaxStepLength = 0.005;
+        public int NumStep => (int)Math.Ceiling(Layer.Thickness / MaxStepLength);
+        public double StepLength => Layer.Thickness / NumStep;
         public List<double> Temperatures;
         public List<double> VapourPressures;
         public List<double> Depths;
         public List<double> DewPoints;
         public List<double> RelativeHumidities;
 
-        public IntermediateConditions(Layer layer, double minStep = 0.005)
+        public IntermediateConditions(Layer layer)
         {
             Layer = layer;
-            NumStep = (int)Math.Ceiling(Layer.Thickness / minStep);
-            StepLength = Layer.Thickness / NumStep;
             Temperatures = new List<double>();
             VapourPressures = new List<double>();
             Depths = new List<double>();

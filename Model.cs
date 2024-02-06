@@ -34,6 +34,7 @@ namespace WallSectionWidget
             Construction.ExteriorTemperature = Parameters.ExteriorTemperature;
             Construction.ExteriorHumidity = Parameters.ExteriorHumidity;
             Construction.UpdateLayers();
+            Construction.Layers.ForEach(L => L.IntermediateConditions.MaxStepLength = Parameters.MaxStepLength);
             Solve();
         }
 

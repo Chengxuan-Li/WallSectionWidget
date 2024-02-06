@@ -28,8 +28,10 @@ namespace WallSectionWidget
             pManager.AddNumberParameter("ExternalRelativeHumidity", "ExRH", @"External relative humidity (%)", GH_ParamAccess.item);
             pManager.AddNumberParameter("InternalSurfaceContactLayerDistance", "InSCLD", "Internal surface contact layer (air) distance (m); 0.00625 by default", GH_ParamAccess.item);
             pManager.AddNumberParameter("ExternalSurfaceContactLayerDistance", "ExSCLD", "External surface contact layer (air) distance (m); 0.001 by default", GH_ParamAccess.item);
+            pManager.AddNumberParameter("MaxStepLength", "MaxSL", "Maximum length (m) when each layer is discretised; 0.005 by default", GH_ParamAccess.item);
             pManager[4].Optional = true;
             pManager[5].Optional = true;
+            pManager[6].Optional = true;
         }
 
         /// <summary>
@@ -67,13 +69,39 @@ namespace WallSectionWidget
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Missing input: internal humidity");
                 return;
             }
+            if (hi < 0 || hi > 100)
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Input error: relative humidity should be a percentage value between 0 and 100");
+                return;
+            }
             if (!DA.GetData(3, ref he))
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Missing input: external humidity");
                 return;
             }
+            if (he < 0 || he > 100)
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Input error: relative humidity should be a percentage value between 0 and 100");
+                return;
+            }
             DA.GetData(4, ref inscld);
             DA.GetData(5, ref exscld);
+            if (inscld <= 0 || exscld <= 0)
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Input error: contact distance should be bigger than zero");
+                return;
+            }
+            if (inscld > 0.2 || exscld > 0.2)
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Warning: contact distance should normally be a positive value smaller than 0.1 m");
+            }
+            double maxStepLength = 0.005;
+            DA.GetData(6, ref maxStepLength);
+            if (maxStepLength <= 0 || maxStepLength > 0.05)
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Input error: Max Step Length should be a small positive value");
+                return;
+            }
             Parameters parameters = new Parameters
             {
                 InteriorTemperature = ti,
@@ -82,6 +110,7 @@ namespace WallSectionWidget
                 ExteriorHumidity = he,
                 InteriorContactDistance = inscld,
                 ExteriorContactDistance = exscld,
+                MaxStepLength = maxStepLength,
             };
             DA.SetData(0, parameters.GHIOParam);
         }

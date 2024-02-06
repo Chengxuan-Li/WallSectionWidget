@@ -65,7 +65,17 @@ namespace WallSectionWidget
 
             DA.GetData(1, ref plane);
             DA.GetData(2, ref height);
+            if (height <= 0)
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Input error: height should be bigger than zero");
+                return;
+            }
             DA.GetData(3, ref scale);
+            if (scale <= 0)
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Input error: scale should be bigger than zero");
+                return;
+            }
 
             WallSectionVisualiser vis = new WallSectionVisualiser(construction, plane, height, scale);
 

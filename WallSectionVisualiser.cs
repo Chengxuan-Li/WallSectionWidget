@@ -15,12 +15,13 @@ namespace WallSectionWidget
         public Plane Plane;
         public double Height;
         public double Scale;
+        public double UnitScale => 1.0; // RhinoMath.UnitScale(RhinoDoc.ActiveDoc.ModelUnitSystem, UnitSystem.Meters);
 
         public WallSectionVisualiser(Construction construction, Plane plane, double height, double scale)
         {
             Construction = construction;
             Plane = plane;
-            Height = height;
+            Height = height / UnitScale;
             Scale = scale;
         }
 
@@ -54,9 +55,12 @@ namespace WallSectionWidget
                     SepPtsBelow[i + 1],
                     SepPtsAbove[i + 1],
                     SepPtsAbove[i],
-                    SepPtsBelow[i]
+                    //SepPtsBelow[i]
                 };
-                Mesh mesh = Mesh.CreateFromClosedPolyline(new Polyline(pts));
+                //Mesh mesh = Mesh.CreateFromClosedPolyline(new Polyline(pts));
+                Mesh mesh = new Mesh();
+                mesh.Vertices.AddVertices(pts);
+                mesh.Faces.AddFace(0, 1, 2, 3);
                 mesh.VertexColors.CreateMonotoneMesh(Construction.Layers[i].Material.VisualiserSetting.Color);
                 for (int j = 0; j < mesh.VertexColors.Count; j++)
                 {

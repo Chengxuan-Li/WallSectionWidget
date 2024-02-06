@@ -14,6 +14,7 @@ namespace WallSectionWidget
         public double ExteriorHumidity;
         public double InteriorContactDistance = 0.00625;
         public double ExteriorContactDistance = 0.001;
+        public double MaxStepLength = 0.005;
 
         public GHIOParam<Parameters> GHIOParam => new GHIOParam<Parameters>(this);
 

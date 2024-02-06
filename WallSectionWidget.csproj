@@ -62,6 +62,7 @@
     <Compile Include="IntermediateConditions.cs" />
     <Compile Include="Layer.cs" />
     <Compile Include="LayerBuilder.cs" />
+    <Compile Include="Legend.cs" />
     <Compile Include="Material.cs" />
     <Compile Include="MaterialBuilder.cs" />
     <Compile Include="MaterialPresets.cs" />
@@ -70,6 +71,8 @@
     <Compile Include="GHIOParam.cs" />
     <Compile Include="ModelParameters.cs" />
     <Compile Include="Parameters.cs" />
+    <Compile Include="ProfileDisplay.cs" />
+    <Compile Include="ProfileVisualiser.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

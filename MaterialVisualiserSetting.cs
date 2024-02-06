@@ -12,7 +12,7 @@ namespace WallSectionWidget
 {
     public class MaterialVisualiserSetting
     {
-        public double UnitScale => RhinoMath.UnitScale(RhinoDoc.ActiveDoc.ModelUnitSystem, UnitSystem.Meters);
+        public double UnitScale => 1.0; // RhinoMath.UnitScale(RhinoDoc.ActiveDoc.ModelUnitSystem, UnitSystem.Meters);
         public int HatchPatternIndex = 1;
         public double HatchPatternScale = 0.1;
         public double HatchPatternRotation = 0.0;
