@@ -58,9 +58,9 @@ namespace WallSectionWidget
 
         public string IsValidWhyNot => "dummy"; // dummy
 
-        public string TypeName => "WSWModel";
+        public string TypeName => typeof(ScriptClass).ToString();
 
-        public string TypeDescription => "Wall section widget model";
+        public string TypeDescription => typeof(ScriptClass).ToString();
 
         public bool CastFrom(object source)
         {

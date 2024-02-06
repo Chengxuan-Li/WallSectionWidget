@@ -42,7 +42,7 @@ namespace WallSectionWidget
         {
             // Use the pManager object to register your output parameters.
             // Output parameters do not have default values, but they too must have the correct access type.
-            pManager.AddGenericParameter("Model", "M", "Wall section model", GH_ParamAccess.item);
+            pManager.AddGenericParameter("WSModel", "SM", "WSW Model definition of a solved wall section model", GH_ParamAccess.item);
             pManager.AddNumberParameter("Depths", "D", "Depths from the inner surface of the wall", GH_ParamAccess.list);
             pManager.AddNumberParameter("Temperatures", "T", "Temperature profile from the inner surface of the wall", GH_ParamAccess.list);
             pManager.AddNumberParameter("VapourPressures", "VP", "Vapour pressure profile from the inner surface of the wall", GH_ParamAccess.list);

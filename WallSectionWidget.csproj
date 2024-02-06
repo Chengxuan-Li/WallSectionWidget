@@ -65,6 +65,7 @@
     <Compile Include="Material.cs" />
     <Compile Include="MaterialBuilder.cs" />
     <Compile Include="MaterialPresets.cs" />
+    <Compile Include="MaterialVisualiserSetting.cs" />
     <Compile Include="Model.cs" />
     <Compile Include="GHIOParam.cs" />
     <Compile Include="ModelParameters.cs" />
@@ -76,6 +77,8 @@
     </Compile>
     <Compile Include="Psychrometrics.cs" />
     <Compile Include="WallSectionSolver.cs" />
+    <Compile Include="WallSectionVisualiser.cs" />
+    <Compile Include="WallSectionDisplay.cs" />
     <Compile Include="WallSectionWidgetInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

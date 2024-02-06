@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace WallSectionWidget
 {
@@ -13,6 +14,7 @@ namespace WallSectionWidget
         public double Density;
         public double HeatCapacity;
         public string Name;
+        public MaterialVisualiserSetting VisualiserSetting;
 
         public GHIOParam<Material> GHIOParam => new GHIOParam<Material>(this);
 
@@ -27,6 +29,10 @@ namespace WallSectionWidget
                     Density = 1.2,
                     HeatCapacity = 1000,
                     Name = "Ordinary air",
+                    VisualiserSetting = new MaterialVisualiserSetting {
+                        HatchPatternIndex = -1,
+                        Color = Color.White,
+                    },
                 };
             }
         }
@@ -42,6 +48,12 @@ namespace WallSectionWidget
                     Density = 2400,
                     HeatCapacity = 900,
                     Name = "Concrete",
+                    VisualiserSetting = new MaterialVisualiserSetting
+                    {
+                        HatchPatternIndex = 1,
+                        HatchPatternRotation = Math.PI * 0.25,
+                        Color = Color.DarkGray,
+                    },
                 };
             }
         }
@@ -57,6 +69,11 @@ namespace WallSectionWidget
                     Density = 160,
                     HeatCapacity = 1800,
                     Name = "Cork",
+                    VisualiserSetting = new MaterialVisualiserSetting
+                    {
+                        HatchPatternIndex = 5,
+                        Color = Color.Bisque,
+                    },
                 };
             }
         }
@@ -72,6 +89,12 @@ namespace WallSectionWidget
                     Density = 500,
                     HeatCapacity = 1600,
                     Name = "Lamination",
+                    VisualiserSetting = new MaterialVisualiserSetting
+                    {
+                        HatchPatternIndex = 2,
+                        HatchPatternRotation = Math.PI * 0.5,
+                        Color = Color.BurlyWood,
+                    },
                 };
             }
         }
@@ -87,6 +110,11 @@ namespace WallSectionWidget
                     Density = 1230,
                     HeatCapacity = 10000,
                     Name = "Vapour retarder",
+                    VisualiserSetting = new MaterialVisualiserSetting
+                    {
+                        HatchPatternIndex = 0,
+                        Color = Color.DodgerBlue,
+                    },
                 };
             }
         }
