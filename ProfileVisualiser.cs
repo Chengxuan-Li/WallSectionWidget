@@ -24,6 +24,10 @@ namespace WallSectionWidget
 
         public Legend Legend;
 
+        public bool OverrideLegendMinMax = false;
+        public double OverrideLegendMin;
+        public double OverrideLegendMax;
+
         public double ActualMinValue => Math.Min(YValues.Min(), SuggestedMinValue);
         public double ActualMaxValue => Math.Max(YValues.Max(), SuggestedMaxValue);
 
@@ -73,6 +77,8 @@ namespace WallSectionWidget
                 Height = this.Height,
                 Plane = plane,
                 OnLeft = true,
+                AutomaticLabelling = !OverrideLegendMinMax,
+                AlternativeLabels = Legend.PrettyBreaks(OverrideLegendMin, OverrideLegendMax, 7),
             };
             return;
         }
@@ -93,6 +99,8 @@ namespace WallSectionWidget
                 Height = this.Height,
                 Plane = plane,
                 OnLeft = false,
+                AutomaticLabelling = !OverrideLegendMinMax,
+                AlternativeLabels = Legend.PrettyBreaks(OverrideLegendMin, OverrideLegendMax, 7),
             };
             return;
         }

@@ -6,7 +6,7 @@ using Rhino.Display;
 
 namespace WallSectionWidget
 {
-    public class ProfileDisplay : GH_Component
+    public class TemperatureProfileDisplay : GH_Component
     {
         
         public List<TextEntity> PreviewTexts = new List<TextEntity>();
@@ -14,9 +14,9 @@ namespace WallSectionWidget
         /// <summary>
         /// Initializes a new instance of the ProfileDisplay class.
         /// </summary>
-        public ProfileDisplay()
-          : base("ProfileDisplay", "PFDis",
-              "Display for a wall section numeric profile",
+        public TemperatureProfileDisplay()
+          : base("TemperatureProfileDisplay", "TPFDis",
+              "Display for a wall section temperature profile",
               "WallSectionWidget", "Display")
         {
         }
@@ -32,11 +32,14 @@ namespace WallSectionWidget
             pManager.AddPlaneParameter("Plane", "Pl", "Plane", GH_ParamAccess.item);
             pManager.AddNumberParameter("Height", "H", "Height", GH_ParamAccess.item);
             pManager.AddNumberParameter("Scale", "S", "Custom scale factor", GH_ParamAccess.item);
+            pManager.AddNumberParameter("OverrideLegendMin", "OLMin", "Value used to override the legend minimum", GH_ParamAccess.item);
+            pManager.AddNumberParameter("OverrideLegendMax", "OLMax", "Value used to override the legend maximum", GH_ParamAccess.item);
             pManager[1].Optional = true;
             pManager[2].Optional = true;
             pManager[3].Optional = true;
             pManager[4].Optional = true;
-            //pManager[5].Optional = true;
+            pManager[5].Optional = true;
+            pManager[6].Optional = true;
         }
 
         /// <summary>
@@ -86,8 +89,20 @@ namespace WallSectionWidget
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Input error: scale should be bigger than zero");
                 return;
             }
-
-            ProfileVisualiser vis = new ProfileVisualiser(model.Depths, model.DewPoints);
+            double overrideLegendMin = 0.0;
+            double overrideLegendMax = 30.0;
+            bool overrideLegendMinMax = false;
+            if (DA.GetData(5, ref overrideLegendMin) && DA.GetData(6, ref overrideLegendMax))
+            {
+                overrideLegendMinMax = true;
+            }
+            ProfileVisualiser vis = new ProfileVisualiser(model.Depths, model.Temperatures);
+            vis.OverrideLegendMinMax = overrideLegendMinMax;
+            if (overrideLegendMinMax)
+            {
+                vis.OverrideLegendMax = overrideLegendMax;
+                vis.OverrideLegendMin = overrideLegendMin;
+            }
             vis.Plane = plane;
             vis.Height = height;
             vis.Scale = scale;
@@ -117,7 +132,7 @@ namespace WallSectionWidget
         {
             get
             {
-                //You can add image files to your project resources and access them like this:
+                // You can add image files to your project resources and access them like this:
                 // return Resources.IconForThisComponent;
                 return null;
             }

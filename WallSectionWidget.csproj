@@ -71,7 +71,7 @@
     <Compile Include="GHIOParam.cs" />
     <Compile Include="ModelParameters.cs" />
     <Compile Include="Parameters.cs" />
-    <Compile Include="ProfileDisplay.cs" />
+    <Compile Include="TemperatureProfileDisplay.cs" />
     <Compile Include="ProfileVisualiser.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

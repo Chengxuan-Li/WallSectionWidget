@@ -27,7 +27,9 @@ namespace WallSectionWidget
         public double Scale = 1.0;
         public double Height = 1.0;
         public int DisiredCount = 20;
-        public List<double> Labels => PrettyBreaks(MinValue, MaxValue, DisiredCount);
+        public bool AutomaticLabelling = true;
+        public List<double> AlternativeLabels;
+        public List<double> Labels => AutomaticLabelling? PrettyBreaks(MinValue, MaxValue, DisiredCount) : AlternativeLabels;
         public bool OnLeft = true;
         public List<double> Positions
         {
