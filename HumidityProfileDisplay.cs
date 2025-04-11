@@ -3,6 +3,7 @@ using Rhino.Geometry;
 using System;
 using System.Collections.Generic;
 using Rhino.Display;
+using System.Linq;
 
 namespace WallSectionWidget
 {
@@ -11,6 +12,7 @@ namespace WallSectionWidget
         
         public List<TextEntity> PreviewTexts = new List<TextEntity>();
         public Polyline Profile;
+        public Polyline Reference100;
 
         /// <summary>
         /// Initializes a new instance of the ProfileDisplay class.
@@ -106,22 +108,33 @@ namespace WallSectionWidget
             List<double> humidity = new List<double>();
             model.RelativeHumidityLevels.ForEach(h => humidity.Add(h <= 100 ? h : 100));
             ProfileVisualiser vis = new ProfileVisualiser(model.Depths, humidity);
+            ProfileVisualiser ref100 = new ProfileVisualiser(model.Depths, model.Depths.Select(d => 100d).ToList());
             vis.OverrideLegendMinMax = overrideLegendMinMax;
+            ref100.OverrideLegendMinMax = overrideLegendMinMax;
             if (overrideLegendMinMax)
             {
                 vis.OverrideLegendMax = overrideLegendMax;
                 vis.OverrideLegendMin = overrideLegendMin;
+                ref100.OverrideLegendMax = overrideLegendMax;
+                ref100.OverrideLegendMin = overrideLegendMin;
             }
             vis.Plane = plane;
+            ref100.Plane = plane;
             vis.Height = height;
+            ref100.Height = height;
             vis.Scale = scale;
+            ref100.Scale = scale;
             if (legendOnLeft)
             {
                 vis.LegendLeft();
+                ref100.LegendLeft();
             } else
             {
                 vis.LegendRight();
+                ref100.LegendRight();
             }
+
+            
 
             List<Line> legendGeoCollector = new List<Line>();
             legendGeoCollector.AddRange(vis.Legend.Markers);
@@ -129,6 +142,8 @@ namespace WallSectionWidget
             DA.SetDataList(0, legendGeoCollector);
             DA.SetData(1, vis.PolylineProfile().ToNurbsCurve());
             Profile = vis.PolylineProfile();
+
+            Reference100 = ref100.PolylineProfile();
 
             vis.Legend.Title = @"Relative Humidity %";
 
@@ -159,6 +174,7 @@ namespace WallSectionWidget
         {
             PreviewTexts.ForEach(t => args.Display.DrawText(t, System.Drawing.Color.Black));
             args.Display.DrawPolyline(Profile, System.Drawing.Color.Blue, 3);
+            args.Display.DrawPatternedPolyline(Reference100.ToList(), System.Drawing.Color.Black, 0x7C7C, 2, false);
         }
 
         
